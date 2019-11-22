@@ -82,6 +82,6 @@ uint32 armada_dequeue(struct armada_QbssState* state, uint32* k, uint32* v);
 void armada_init_queue( struct armada_QbssState* que, 
                         struct armada_BSSQueueElement *element_array, 
                         uint32 size,
-                        void *user_state)
+                        void *user_state);
 
 
