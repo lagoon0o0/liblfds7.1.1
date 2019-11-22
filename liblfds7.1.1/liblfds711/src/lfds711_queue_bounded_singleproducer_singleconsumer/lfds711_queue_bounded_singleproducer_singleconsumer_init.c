@@ -61,12 +61,15 @@ void lfds711_queue_bss_init_valid_on_current_logical_core( struct lfds711_queue_
   return;
 }
 
-void armada_init_queue(struct armada_QbssState* que, uint32 size)
+void armada_init_queue( struct armada_QbssState* que, 
+                        struct armada_BSSQueueElement *element_array, 
+                        uint32 size,
+                        void *user_state)
 {
   (*(que)).array_size = size;
-  (*(que)).user_state = NULL;
   (*(que)).mask = (size) - ((uint32)1);
-  (*(que)).element_array = (struct armada_BSSQueueElement*) calloc((size_t)(size), sizeof(struct armada_BSSQueueElement));
+  (*(que)).user_state = user_state;
+  (*(que)).element_array = element_array;
   (*(que)).write_index = (uint32)0;
   (*(que)).read_index = (uint32)0;
 
