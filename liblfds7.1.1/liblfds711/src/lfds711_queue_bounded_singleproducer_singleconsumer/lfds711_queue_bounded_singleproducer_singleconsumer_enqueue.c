@@ -46,7 +46,7 @@ uint32 armada_enqueue(struct armada_QbssState* state, uint32 k, uint32 v)
   uint32 ret = 0;
   uint32 _0_write__index;
   _0_write__index = (*(state)).write_index;
-after_0: ;
+//after_0: ;
   uint32 _1_array__size;
   _1_array__size = (*(state)).array_size;
   uint32 _2_read__index;
@@ -54,19 +54,19 @@ after_0: ;
   struct armada_BSSQueueElement* _3_e = NULL;
   if ((((_0_write__index) + ((uint32)1)) % (_1_array__size)) != (_2_read__index)) {
     _3_e = ((*(state)).element_array) + (_0_write__index);
-  after_2: ;
+//  after_2: ;
     (*(_3_e)).key = k;
-  after_3: ;
+//  after_3: ;
     (*(_3_e)).value = v;
-  after_4: ;
+//  after_4: ;
     LFDS711_MISC_BARRIER_STORE;
     (*(state)).write_index = ((_0_write__index) + ((uint32)1)) % (_1_array__size);
-  after_5: ;
+//  after_5: ;
     ret = (uint32)1;
     return ret;
-  after_6: ;
+//  after_6: ;
   }
-after_1: ;
+//after_1: ;
   ret = (uint32)0;
   return ret;
 }
