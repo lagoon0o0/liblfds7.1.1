@@ -40,7 +40,7 @@ int lfds711_queue_bss_enqueue( struct lfds711_queue_bss_state *qbsss,
 
 
 
-uint32 armada_enqueue(struct QbssState* state, uint32 k, uint32 v)
+uint32 armada_enqueue(struct armada_QbssState* state, uint32 k, uint32 v)
 {
   LFDS711_MISC_BARRIER_LOAD;
   uint32 ret = 0;
@@ -51,7 +51,7 @@ after_0: ;
   _1_array__size = (*(state)).array_size;
   uint32 _2_read__index;
   _2_read__index = (*(state)).read_index;
-  struct BSSQueueElement* _3_e = NULL;
+  struct armada_BSSQueueElement* _3_e = NULL;
   if ((((_0_write__index) + ((uint32)1)) % (_1_array__size)) != (_2_read__index)) {
     _3_e = ((*(state)).element_array) + (_0_write__index);
   after_2: ;
