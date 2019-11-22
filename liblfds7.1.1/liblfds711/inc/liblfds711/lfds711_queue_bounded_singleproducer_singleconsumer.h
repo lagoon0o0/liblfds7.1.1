@@ -73,12 +73,12 @@ struct armada_QbssState {
   uint32 mask;
   uint32 volatile read_index;
   uint32 volatile write_index;
-  struct BSSQueueElement* element_array;
+  struct armada_BSSQueueElement* element_array;
   void *user_state;
 };
 
-uint32 armada_enqueue(struct QbssState* state, uint32 k, uint32 v);
-uint32 armada_dequeue(struct QbssState* state, uint32* k, uint32* v);
-void armada_init_queue(struct QbssState* que, uint32 size);
+uint32 armada_enqueue(struct armada_QbssState* state, uint32 k, uint32 v);
+uint32 armada_dequeue(struct armada_QbssState* state, uint32* k, uint32* v);
+void armada_init_queue(struct armada_QbssState* que, uint32 size);
 
 
