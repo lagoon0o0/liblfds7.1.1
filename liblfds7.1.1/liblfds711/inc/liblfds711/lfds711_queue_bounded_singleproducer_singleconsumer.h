@@ -18,7 +18,8 @@ struct lfds711_queue_bss_element
 
 struct lfds711_queue_bss_state
 {
-  
+  void *user_state;
+
   lfds711_pal_uint_t volatile
     read_index,
     write_index;
@@ -30,8 +31,6 @@ struct lfds711_queue_bss_state
     number_elements,
     mask;
 
-  void
-    *user_state;
 };
 
 /***** public prototypes *****/
