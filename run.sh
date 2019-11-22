@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "branch $1 flag: $2"
+git pull
 git checkout $1
 git pull
 echo "on the branch:"
