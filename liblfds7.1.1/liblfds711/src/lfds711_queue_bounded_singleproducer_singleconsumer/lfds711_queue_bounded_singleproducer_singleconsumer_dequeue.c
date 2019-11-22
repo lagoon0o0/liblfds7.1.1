@@ -12,8 +12,8 @@ int lfds711_queue_bss_dequeue( struct lfds711_queue_bss_state *qbsss,
 {
   struct lfds711_queue_bss_element
     *qbsse;
-
   LFDS711_PAL_ASSERT( qbsss != NULL );
+  lfds711_pal_uint_t number_elements = qbsss->number_elements;
   // TRD : key can be NULL
   // TRD : value can be NULL
 
@@ -29,7 +29,7 @@ int lfds711_queue_bss_dequeue( struct lfds711_queue_bss_state *qbsss,
     if( value != NULL )
       *value = qbsse->value;
 
-    qbsss->read_index = (qbsss->read_index + 1) % qbsss->number_elements;
+    qbsss->read_index = (qbsss->read_index + 1) % number_elements;
 
     LFDS711_MISC_BARRIER_STORE;
 
