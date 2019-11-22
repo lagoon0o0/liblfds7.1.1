@@ -41,3 +41,35 @@ int lfds711_queue_bss_dequeue( struct lfds711_queue_bss_state *qbsss,
   return 0;
 }
 
+
+uint32 armada_dequeue(struct QbssState* state, uint32* k, uint32* v)
+{
+  LFDS711_MISC_BARRIER_LOAD;
+  uint32 ret = 0;
+  uint32 _4_write__index;
+  _4_write__index = (*(state)).write_index;
+  uint32 _5_array__size;
+  _5_array__size = (*(state)).array_size;
+  uint32 _6_read__index;
+  _6_read__index = (*(state)).read_index;
+  struct BSSQueueElement* _7_e = NULL;
+  uint32 _8_key = 0;
+  uint32 _9_value = 0;
+  if ((_6_read__index) != (_4_write__index)) {
+    _7_e = ((*(state)).element_array) + (_6_read__index);
+    if ((k) != (NULL)) {
+      _8_key = (*(_7_e)).key;
+      *k = _8_key;
+    }
+    if ((v) != (NULL)) {
+      _9_value = (*(_7_e)).value;
+      *v = _9_value;
+    }
+    (*(state)).read_index = ((_6_read__index) + ((uint32)1)) % (_5_array__size);
+    LFDS711_MISC_BARRIER_STORE;
+    ret = (uint32)1;
+    return ret;
+  }
+  ret = (uint32)0;
+  return ret;
+}

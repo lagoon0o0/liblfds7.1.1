@@ -19,6 +19,7 @@ struct lfds711_queue_bss_element
 struct lfds711_queue_bss_state
 {
   
+  lfds711_pal_uint_t number_elements;
   lfds711_pal_uint_t mask;
     
   lfds711_pal_uint_t volatile
@@ -28,7 +29,7 @@ struct lfds711_queue_bss_state
   struct lfds711_queue_bss_element
     *element_array;
 
-  lfds711_pal_uint_t number_elements;
+  
   void *user_state;
 };
 
@@ -55,4 +56,29 @@ void lfds711_queue_bss_query( struct lfds711_queue_bss_state *qbsss,
                               enum lfds711_queue_bss_query query_type,
                               void *query_input,
                               void *query_output );
+
+
+/* include our armada impl */
+
+typedef unsigned long      uint32;
+
+struct armada_BSSQueueElement {
+  uint32 volatile key;
+  uint32 volatile value;
+};
+struct armada_QbssState;
+typedef struct QbssState QbssState;
+struct armada_QbssState {
+  uint32 array_size;
+  uint32 mask;
+  uint32 volatile read_index;
+  uint32 volatile write_index;
+  struct BSSQueueElement* element_array;
+  void *user_state;
+};
+
+uint32 armada_enqueue(struct QbssState* state, uint32 k, uint32 v);
+uint32 armada_dequeue(struct QbssState* state, uint32* k, uint32* v);
+void armada_init_queue(struct QbssState* que, uint32 size);
+
 
