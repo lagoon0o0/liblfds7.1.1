@@ -29,7 +29,7 @@ int lfds711_queue_bss_dequeue( struct lfds711_queue_bss_state *qbsss,
     if( value != NULL )
       *value = qbsse->value;
 
-    qbsss->read_index = (qbsss->read_index + 1) & qbsss->mask;
+    qbsss->read_index = (qbsss->read_index + 1) % qbsss->number_elements;
 
     LFDS711_MISC_BARRIER_STORE;
 

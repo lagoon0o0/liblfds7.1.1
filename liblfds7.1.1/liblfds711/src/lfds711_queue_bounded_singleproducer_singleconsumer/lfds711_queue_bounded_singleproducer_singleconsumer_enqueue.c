@@ -19,7 +19,7 @@ int lfds711_queue_bss_enqueue( struct lfds711_queue_bss_state *qbsss,
 
   LFDS711_MISC_BARRIER_LOAD;
 
-  if( ( (qbsss->write_index+1) & qbsss->mask ) != qbsss->read_index )
+  if( ( (qbsss->write_index+1) % qbsss->number_elements ) != qbsss->read_index )
   {
     qbsse = qbsss->element_array + qbsss->write_index;
 
@@ -28,7 +28,7 @@ int lfds711_queue_bss_enqueue( struct lfds711_queue_bss_state *qbsss,
 
     LFDS711_MISC_BARRIER_STORE;
 
-    qbsss->write_index = (qbsss->write_index + 1) & qbsss->mask;
+    qbsss->write_index = (qbsss->write_index + 1) % qbsss->number_elements;
 
     return 1;
   }
