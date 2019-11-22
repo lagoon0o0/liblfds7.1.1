@@ -14,21 +14,23 @@ int lfds711_queue_bss_enqueue( struct lfds711_queue_bss_state *qbsss,
     *qbsse;
   LFDS711_PAL_ASSERT( qbsss != NULL );
   lfds711_pal_uint_t number_elements = qbsss->number_elements;
+  lfds711_pal_uint_t write_index = qbsss->write_index;
+  lfds711_pal_uint_t read_index = qbsss->read_index;
   // TRD : key can be NULL
   // TRD : value can be NULL
 
   LFDS711_MISC_BARRIER_LOAD;
 
-  if( ( (qbsss->write_index+1) % qbsss->number_elements ) != qbsss->read_index )
+  if( ( (write_index+1) % number_elements ) != read_index )
   {
-    qbsse = qbsss->element_array + qbsss->write_index;
+    qbsse = qbsss->element_array + write_index;
 
     qbsse->key = key;
     qbsse->value = value;
 
     LFDS711_MISC_BARRIER_STORE;
 
-    qbsss->write_index = (qbsss->write_index + 1) % qbsss->number_elements;
+    qbsss->write_index = (write_index + 1) % number_elements;
 
     return 1;
   }
